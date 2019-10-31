@@ -18,7 +18,7 @@ services:
   potepanec:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.ci
     container_name: potepanec_app
     ports:
       - '3000:3000'
@@ -32,5 +32,4 @@ services:
       - redis
     networks:
       - default
-    tty: true
-    stdin_open: true
+    command: bundle exec rails server -b 0.0.0.0

@@ -32,11 +32,15 @@ jobs:
             docker-compose up -d
             docker exec potepanec_app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
+          name: Setup DB
+          command: |
+            docker-compose exec potepanec bundle exec rails g spree:install --migrate --seed --sample --auto_accept
+      - run:
           name: Rubocop
-          command: docker-compose run potapanec bundle exec rubocop
+          command: docker-compose exec potapanec bundle exec rubocop
       - run:
           name: Rspec
-          command: docker-compose run potepanec rspec
+          command: docker-compose exec potepanec rspec
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
