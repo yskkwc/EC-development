@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Setup DB
           command: |
-            docker-compose exec potepanec bundle exec rails g spree:install --migrate --seed --sample --auto_accept
+            docker-compose exec potepanec bash -c 'yes n | bundle exec rails g spree:install --migrate --seed --sample --auto_accept'
       - run:
           name: Rubocop
           command: docker-compose exec potapanec bundle exec rubocop
