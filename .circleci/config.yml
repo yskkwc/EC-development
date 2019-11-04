@@ -37,7 +37,7 @@ jobs:
             docker-compose exec potepanec bash -c 'yes n | bundle exec rails g spree:install --migrate --seed --sample --auto_accept'
       - run:
           name: Rubocop
-          command: docker-compose exec potapanec bundle exec rubocop
+          command: docker-compose exec potepanec bundle exec rubocop
       - run:
           name: Rspec
           command: docker-compose exec potepanec rspec
