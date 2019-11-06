@@ -1,25 +1,11 @@
 version: 2
 jobs:
-  build:
+  rspec:
+    working_directory: ~/potepanec
     docker:
       - image: circleci/ruby
-
-    working_directory: ~/potepanec
-
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - setup_remote_docker
       - run:
           name: Setup environment variable
@@ -32,17 +18,39 @@ jobs:
             docker-compose up -d
             docker exec potepanec_app curl -4 --retry 10 --retry-delay 3 --retry-connrefused http://localhost:3000
       - run:
-          name: Setup DB
+          name: Setup database
           command: |
             docker-compose exec potepanec bash -c 'yes n | bundle exec rails g spree:install --migrate --seed --sample --auto_accept'
       - run:
-          name: Rubocop
-          command: docker-compose exec potepanec bundle exec rubocop
-      - run:
-          name: Rspec
+          name: Run rspec
           command: docker-compose exec potepanec rspec
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+
+  rubocop:
+    working_directory: ~/potepanec
+    docker:
+      - image: circleci/ruby:2.5.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-master-
+      - run: bundle config --local path vendor/bundle
+      - run:
+          name: bundle install
+          command: bundle check || bundle install --jobs=8 --clean
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop --parallel
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - rspec
+      - rubocop
