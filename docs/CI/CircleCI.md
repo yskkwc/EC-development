@@ -24,9 +24,10 @@ https://circleci.com/signup/
 
 CircleCIが`.circleci/config.yml`に記載された手順に従ってビルドを開始する様子が確認できたでしょうか?
 
-TODO: 正常系の画像を挿れる
+![jobs on circleci](../images/CI/jobs_on_circleci.png)
 
-TODO: PR上でのビルド結果確認方法説明を追加する
+Pull Request を作成すると、CIの実行結果が画面上で確認できます。
+![ci result on pr](../images/CI/ci_result_on_pr.png)
 
 
 ### 補足: `.circleci/config.yml`が見つからない方へ
