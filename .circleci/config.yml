@@ -61,7 +61,7 @@ jobs:
           command: echo 'export MY_EMAIL=`heroku auth:whoami | tail -n 1`' >> $BASH_ENV
       - run:
           name: Identify Heroku app names to destroy
-          command: echo 'export APP_NAMES_TO_REMOVE=`heroku apps --json | jq -r "map(select(.owner.email == "\"$MY_EMAIL\"")) | sort_by(.updated_at) | reverse | .[5:] | .[].name"`' >> $BASH_ENV
+          command: echo 'export APP_NAMES_TO_REMOVE=`heroku apps --json | jq -r "map(select(.owner.email == "\"$MY_EMAIL\"" and (.name | contains(\"potepanec\")))) | sort_by(.updated_at) | reverse | .[5:] | .[].name"`' >> $BASH_ENV
       - run:
           name: Delete old apps if needed
           command: for app_name in $APP_NAMES_TO_REMOVE; do heroku apps:destroy -a $app_name -c $app_name; done
