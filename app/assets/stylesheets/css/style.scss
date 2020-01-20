@@ -672,6 +672,10 @@ a:hover, a:focus {
     width: 300px;
   }
 }
+.input-group-addon:last-child {
+  background: #47bac1;
+  color: #fff;
+}
 @media (max-width: 479px) {
   .navbar-default .navbar-collapse li.dropdown.open .dropdown-menu li a {
     padding: 10px 12px 10px 0;
