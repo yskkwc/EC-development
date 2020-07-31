@@ -20,7 +20,7 @@ https://circleci.com/signup/
 画面左の`Add Projects`から、potepanecレポジトリ横にある`Set Up Project`を選択します。
 ![set up repo](../images/CI/setup_repo.png)
 
-`config.yml`を追加するためのステップが表示されていますが、fork元の本家potepanecレポジトリでは既に`.circleci/config.yml`に追加されています。ファイルがあることを確認できれば、次のステップに進むために`Start building`を選択します。
+`config.yml`を追加するためのステップが表示されていますが、fork元の本家potepanecレポジトリでは既に`.circleci/config.yml`に追加されています。ファイルがあることを確認できれば、次のステップに進むために`Use Existing Config`を選択します。
 ![start building](../images/CI/start_building.png)
 
 CircleCIが`.circleci/config.yml`に記載された手順に従ってビルドを開始する様子が確認できたでしょうか?
@@ -52,7 +52,7 @@ HerokuのWebページにログインし、右上の自分のアイコンから`A
 `API Key`セクションにある`Reveal`ボタンをクリックすると表示されるトークンをコピーしておきます。
 ![heroku apu key](../images/CI/heroku_api_key.png)
 
-続いて、CircleCI上でpotepanecレポジトリ横にある歯車アイコンをクリックします。
+続いて、CircleCI上でPipelines画面の右上にある歯車アイコンをクリックします。
 ![config gear](../images/CI/config_gear.png)
 
 左メニューから`Environment Variable`を選択し、`Add Variables`ボタンをクリックするとポップアップが表示されます。
