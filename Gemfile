@@ -10,7 +10,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
 # use bootsnap
-gem 'bootsnap', require: false
+gem 'bootsnap', :require => false
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5.2'
 # Use Puma as the app server
@@ -36,12 +36,12 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'solidus', '~> 2.9.0'
 gem 'solidus_auth_devise'
-gem 'solidus_i18n', github: 'solidusio-contrib/solidus_i18n', branch: 'master'
+gem 'solidus_i18n', :github => 'solidusio-contrib/solidus_i18n', :branch => 'master'
 
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', :platforms => [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'pry-rails'
@@ -58,13 +58,13 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
+  gem 'rubocop', :require => false
+  gem 'rubocop-performance', :require => false
+  gem 'rubocop-rails', :require => false
   gem 'rubocop-rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', :platforms => [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "aws-sdk", "~> 2.3"

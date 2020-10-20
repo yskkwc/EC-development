@@ -24,7 +24,7 @@ class AddAmountRemainingToStoreCreditEvents < ActiveRecord::Migration[5.0]
   end
 
   def up
-    add_column :spree_store_credit_events, :amount_remaining, :decimal, precision: 8, scale: 2, default: nil, null: true
+    add_column :spree_store_credit_events, :amount_remaining, :decimal, :precision => 8, :scale => 2, :default => nil, :null => true
 
     StoreCredit.includes(:store_credit_events).find_each do |credit|
       credit_amount = credit.amount

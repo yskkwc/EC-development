@@ -21,5 +21,5 @@
   'RUBY ON RAILS t-shirt',
   'TOTE',
 ].each do |keyword|
-  Potepan::Suggest.create!(keyword: keyword)
+  Potepan::Suggest.create!(:keyword => keyword)
 end

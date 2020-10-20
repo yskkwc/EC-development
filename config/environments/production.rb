@@ -93,14 +93,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.paperclip_defaults = {
-    storage: :s3,
-    preserve_files: true,
-    s3_host_name: 's3-ap-northeast-1.amazonaws.com',
-    s3_credentials: {
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-      s3_region: 'ap-northeast-1'
+    :storage => :s3,
+    :preserve_files => true,
+    :s3_host_name => 's3-ap-northeast-1.amazonaws.com',
+    :s3_credentials => {
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+      :s3_region => 'ap-northeast-1'
     },
-    bucket: 'potepanec-main-task-yskkwc'
+    :bucket => 'potepanec-main-task-yskkwc'
   }
 end

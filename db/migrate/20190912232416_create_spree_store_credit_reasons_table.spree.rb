@@ -13,13 +13,13 @@ class CreateSpreeStoreCreditReasonsTable < ActiveRecord::Migration[5.1]
   def up
     create_table :spree_store_credit_reasons do |t|
       t.string :name
-      t.boolean :active, default: true
+      t.boolean :active, :default => true
 
       t.timestamps
     end
 
     StoreCreditUpdateReason.all.each do |update_reason|
-      StoreCreditReason.create!(name: update_reason.name)
+      StoreCreditReason.create!(:name => update_reason.name)
     end
 
     add_column :spree_store_credit_events, :store_credit_reason_id, :integer
@@ -47,7 +47,7 @@ class CreateSpreeStoreCreditReasonsTable < ActiveRecord::Migration[5.1]
     end
 
     StoreCreditReason.all.each do |store_credit_reason|
-      StoreCreditUpdateReason.create!(name: store_credit_reason.name)
+      StoreCreditUpdateReason.create!(:name => store_credit_reason.name)
     end
 
     drop_table :spree_store_credit_reasons

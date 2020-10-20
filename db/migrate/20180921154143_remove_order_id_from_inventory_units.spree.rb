@@ -26,6 +26,6 @@ class RemoveOrderIdFromInventoryUnits < ActiveRecord::Migration[5.0]
   end
 
   def down
-    add_reference :spree_inventory_units, :order, index: true
+    add_reference :spree_inventory_units, :order, :index => true
   end
 end

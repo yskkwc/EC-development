@@ -10,7 +10,7 @@ class RemoveCodeFromSpreePromotions < ActiveRecord::Migration[5.1]
   end
 
   def up
-    promotions_with_code = Promotion.where.not(code: [nil, ''])
+    promotions_with_code = Promotion.where.not(:code => [nil, ''])
 
     if promotions_with_code.any?
       # You have some promotions with "code" field present! This is not good
@@ -19,13 +19,13 @@ class RemoveCodeFromSpreePromotions < ActiveRecord::Migration[5.1]
       self.class.promotions_with_code_handler.new(self, promotions_with_code).call
     end
 
-    remove_index :spree_promotions, name: :index_spree_promotions_on_code
+    remove_index :spree_promotions, :name => :index_spree_promotions_on_code
     remove_column :spree_promotions, :code
   end
 
   def down
     add_column :spree_promotions, :code, :string
-    add_index :spree_promotions, :code, name: :index_spree_promotions_on_code
+    add_index :spree_promotions, :code, :name => :index_spree_promotions_on_code
   end
 
   def self.promotions_with_code_handler
