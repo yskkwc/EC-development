@@ -38,7 +38,6 @@ gem 'solidus', '~> 2.9.0'
 gem 'solidus_auth_devise'
 gem 'solidus_i18n', :github => 'solidusio-contrib/solidus_i18n', :branch => 'master'
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', :platforms => [:mri, :mingw, :x64_mingw]
@@ -49,6 +48,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rails-erd'
   gem 'annotate'
+  gem 'rubocop-airbnb'
 end
 
 group :development do
@@ -58,10 +58,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rubocop', :require => false
-  gem 'rubocop-performance', :require => false
-  gem 'rubocop-rails', :require => false
-  gem 'rubocop-rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
