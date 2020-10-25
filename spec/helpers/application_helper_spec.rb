@@ -11,10 +11,10 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
 
     context "not_have indivisual title" do
-      it "display title 'BIGBAG Store' when title blank" do
+      it "display title 'BIGBAG Store' when page_title: ''" do
         expect(full_title(page_title: "")).to eq "#{BASE_TITLE}"
       end
-      it "display title 'BIGBAG Store' when title nil" do
+      it "display title 'BIGBAG Store' when page_title: nil" do
         expect(full_title(page_title: nil)).to eq "#{BASE_TITLE}"
       end
     end
