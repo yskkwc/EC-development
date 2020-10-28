@@ -1,5 +1,5 @@
 <% provide(:title, @product.name) %>
-<%= render 'layouts/light-sec' %>
+<%= render 'layouts/light_sec', product: @product %>
 <!-- MAIN CONTENT SECTION -->
 <section class="mainContent clearfix">
   <div class="container">
@@ -25,12 +25,12 @@
                     </div>
                   <% end %>
                 </div>
-                  <a class="left carousel-control" href="#thumbcarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                  </a>
-                  <a class="right carousel-control" href="#thumbcarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                  </a>
+                <a class="left carousel-control" href="#thumbcarousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#thumbcarousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
               </div>
             </div>
           </div>
@@ -109,8 +109,8 @@
             <%= image_tag("img/products/products-01.jpg", :alt => "products-img") %>
           </div>
           <div class="productCaption clearfix">
-           <h5>Nike Sportswear</h5>
-           <h3>199円</h3>
+            <h5>Nike Sportswear</h5>
+            <h3>199円</h3>
           </div>
         </div>
       </div>
@@ -120,8 +120,8 @@
             <%= image_tag("img/products/products-02.jpg", :alt => "products-img") %>
           </div>
           <div class="productCaption clearfix">
-           <h5>Dip Dyed Sweater</h5>
-           <h3>249円</h3>
+            <h5>Dip Dyed Sweater</h5>
+            <h3>249円</h3>
           </div>
         </div>
       </div>
