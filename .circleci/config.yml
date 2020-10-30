@@ -78,6 +78,9 @@ jobs:
           name: Run post-deploy tasks
           command: |
             heroku config:set AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            heroku config:set AWS_HOST_NAME=$AWS_HOST_NAME
+            heroku config:set AWS_REGION=$AWS_REGION
+            heroku config:set AWS_BUCKET_NAME=$AWS_BUCKET_NAME
             heroku run bin/rails db:migrate
             heroku run bin/rails runner "['products', 'taxons', 'option_values', 'product_option_types', 'product_properties', 'variants', 'assets'].each { |table| Spree::Sample.load_sample(table) }"
             heroku run bin/rails runner db/seeds/potepan_suggest.rb
