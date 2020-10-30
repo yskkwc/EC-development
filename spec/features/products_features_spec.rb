@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature "Products_feature", type: :feature do
-  let(:product) { FactoryBot.create(:product) }
+  let(:product) { create(:product) }
 
   before do
     visit potepan_product_path(product.id)

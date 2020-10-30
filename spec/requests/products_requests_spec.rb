@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Products_requests", type: :request do
-  let(:product) { FactoryBot.create(:product) }
+  let(:product) { create(:product) }
 
   describe "#index" do
     let!(:into_index) do
