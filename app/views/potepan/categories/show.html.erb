@@ -1,0 +1,18 @@
+<%= provide(:title, @taxon.name)%>
+<%= render 'upper_light_categories', taxon: @taxon %>
+<!-- MAIN CONTENT SECTION -->
+<section class="mainContent clearfix productsContent">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-4 col-xs-12 sideBar">
+        <%= render 'potepan/shared/categories_left_bar', taxonomies: @taxonomies %>
+        <%= render 'potepan/shared/findby_colors_left_bar' %>
+        <%= render 'potepan/shared/findby_sizing_left_bar' %>
+      </div>
+      <div class="col-md-9 col-sm-8 col-xs-12">
+        <%= render 'grid_menus', products: @products %>
+      </div>
+    </div>
+  </div>
+</section>
+<%= render 'layouts/bottom_partners' %>
