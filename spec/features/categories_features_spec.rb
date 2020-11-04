@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-RSpec.feature "Products_feature", type: :feature do
-  let(:taxon) { create(:taxon) }
-  let(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
-
+RSpec.feature "Categories_feature", type: :feature do
+  let(:taxonomy) { create(:taxonomy) }
+  let(:taxon) { create(:taxon, parent_id: taxonomy.root.id, taxonomy: taxonomy) }
+  let!(:product) { create(:product, taxons: [taxon]) }
+  let!(:sample_product) { create(:product, name: "SampleTote", taxons: [taxon]) }
   let!(:into_show) do
-    visit potepan_product_path(product.id)
+    visit potepan_category_path(taxon.id)
   end
 
   describe 'check header and footer' do
@@ -18,7 +19,7 @@ RSpec.feature "Products_feature", type: :feature do
     end
   end
 
-  describe "visit home_link from products#show" do
+  describe 'visit home_link from categories#show' do
     let(:contents_check) do
       aggregate_failures do
         expect(page).to have_content '人気カテゴリー'
@@ -37,17 +38,26 @@ RSpec.feature "Products_feature", type: :feature do
       contents_check
     end
 
-    scenario '"一覧ページへ戻る" リンク' do
-      click_link '一覧ページへ戻る'
-      expect(page).to have_content 'SampleTote'
-      expect(page).to have_content '$19.99'
-      click_on 'image of SampleTote'
-      expect(page).to have_content '関連商品'
-    end
-
     scenario '_light_sec navbarのhomeリンク' do
       find('.light_home').click
       contents_check
     end
+  end
+
+  describe 'use js contents' do
+    scenario 'visit product_page from categories#show', js: true do
+      click_on 'image of SampleTote'
+      check_contents
+    end
+  end
+
+  private
+
+  def check_contents
+    aggregate_failures do
+      expect(page).to have_content 'SAMPLETOTE'
+      expect(page).to have_content '$19.99'
+    end
+    click_link '一覧ページへ戻る'
   end
 end

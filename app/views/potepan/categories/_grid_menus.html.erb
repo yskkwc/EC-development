@@ -5,11 +5,11 @@
       <div class="productBox">
         <%= link_to potepan_product_path(product.id) do %>
           <div class="productImage clearfix">
-            <%= image_tag(product.display_image.attachment(:product), alt: product.name) %>
+            <%= image_tag(product.display_image.attachment(:product), :alt => "image of #{product.name}") %>
           </div>
           <div class="productCaption clearfix">
-            <h5><%= product.name %></h5>
-            <h3><%= product.display_price %></h3>
+            <h5 class='grid_menu_product_name'><%= product.name %></h5>
+            <h3 class='grid_menu_price'><%= product.display_price %></h3>
           </div>
         <% end %>
       </div>
