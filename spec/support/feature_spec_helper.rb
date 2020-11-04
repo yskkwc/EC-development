@@ -1,7 +1,6 @@
 module FeatureSpecHelper
   def header_check(path)
     visit path
-    save_and_open_page
     expect(page).to have_css('.topBar')
     expect(page).to have_css('.navbar')
   end
