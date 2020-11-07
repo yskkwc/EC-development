@@ -4,17 +4,17 @@ RSpec.feature "Products_feature", type: :feature do
   let(:taxon) { create(:taxon) }
   let(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
 
-  let!(:into_show) do
-    visit potepan_product_path(product.id)
+  before do
+    @path = visit potepan_product_path(product.id)
   end
 
   describe 'check header and footer' do
     scenario 'check header' do
-      header_check(into_show)
+      header_check(@path)
     end
 
     scenario 'check footer' do
-      footer_check(into_show)
+      footer_check(@path)
     end
   end
 

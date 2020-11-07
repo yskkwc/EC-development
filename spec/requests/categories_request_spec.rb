@@ -6,7 +6,7 @@ RSpec.describe "Categories_requests", type: :request do
   let!(:product) { create(:product, taxons: [taxon]) }
 
   describe "#show" do
-    let!(:into_show) do
+    before do
       get potepan_category_path(taxon.id)
     end
 
