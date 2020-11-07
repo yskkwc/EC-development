@@ -3,8 +3,13 @@ require 'rails_helper'
 RSpec.feature "Categories_feature", type: :feature do
   let(:taxonomy) { create(:taxonomy) }
   let(:taxon) { create(:taxon, parent_id: taxonomy.root.id, taxonomy: taxonomy) }
-  let!(:product) { create(:product, taxons: [taxon]) }
-  let!(:sample_product) { create(:product, name: "SampleTote", taxons: [taxon]) }
+  let!(:another_taxon) do
+    create(:taxon, name: "Another taxon", parent_id: taxonomy.root.id, taxonomy: taxonomy)
+  end
+  let!(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
+  let!(:similar_product) { create(:product, name: "SampleBag", taxons: [taxon]) }
+  let!(:another_product) { create(:product, name: "SampleJersey", taxons: [another_taxon]) }
+
   let!(:into_show) do
     visit potepan_category_path(taxon.id)
   end
@@ -20,44 +25,77 @@ RSpec.feature "Categories_feature", type: :feature do
   end
 
   describe 'visit home_link from categories#show' do
-    let(:contents_check) do
-      aggregate_failures do
-        expect(page).to have_content '人気カテゴリー'
-        expect(page).to have_content '新着商品'
-        expect(page).to have_link 'home'
-      end
-    end
-
     scenario 'header navbarのロゴリンク' do
       click_on 'home_link'
-      contents_check
+      home_link_check
     end
 
     scenario 'header navbarのHOMEリンク' do
       find('.navbar-home').click
-      contents_check
+      home_link_check
     end
 
     scenario '_light_sec navbarのhomeリンク' do
       find('.light_home').click
-      contents_check
+      home_link_check
     end
   end
 
-  describe 'use js contents' do
-    scenario 'visit product_page from categories#show', js: true do
+  describe 'visit product_page from categories#show' do
+    scenario 'to use display_image', js: true do
       click_on 'image of SampleTote'
-      check_contents
+      product_link_check
+    end
+
+    scenario 'to use product.name', js: true do
+      click_link 'SampleTote'
+      product_link_check
+    end
+
+    scenario 'to use product.display_price', js: true do
+      click_link '$19.99', match: :first
+      product_link_check
+    end
+  end
+
+  describe 'visit to taxon from taxonomy' do
+    scenario 'to use taxon "Ruby on Rails"', js: true do
+      click_link 'Brand'
+      click_link 'Ruby on Rails'
+      expect(page).to have_content 'SAMPLETOTE'
+      expect(page).to have_content 'SAMPLEBAG'
+      expect(page).not_to have_content 'SAMPLEJERSEY'
+    end
+
+    scenario 'to use taxon "Another taxon"', js: true do
+      click_link 'Brand'
+      click_link 'Another taxon'
+      expect(page).not_to have_content 'SAMPLETOTE'
+      expect(page).not_to have_content 'SAMPLEBAG'
+      expect(page).to have_content 'SAMPLEJERSEY'
     end
   end
 
   private
 
-  def check_contents
+  def home_link_check
+    aggregate_failures do
+      expect(page).to have_content '人気カテゴリー'
+      expect(page).to have_content '新着商品'
+      expect(page).to have_link 'home'
+    end
+  end
+
+  def product_link_check
     aggregate_failures do
       expect(page).to have_content 'SAMPLETOTE'
+      expect(page).not_to have_content 'SAMPLEBAG'
       expect(page).to have_content '$19.99'
+      expect(page).to have_content '関連商品'
+      click_link '一覧ページへ戻る'
+      expect(page).to have_content 'SAMPLETOTE'
+      expect(page).to have_content 'SAMPLEBAG'
+      expect(page).not_to have_content 'SAMPLEJERSEY'
     end
-    click_link '一覧ページへ戻る'
   end
 end
