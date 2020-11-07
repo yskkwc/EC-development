@@ -9,18 +9,19 @@ RSpec.feature "Categories_feature", type: :feature do
   let!(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
   let!(:similar_product) { create(:product, name: "SampleBag", taxons: [taxon]) }
   let!(:another_product) { create(:product, name: "SampleJersey", taxons: [another_taxon]) }
+  let(:path) { potepan_category_path(taxon.id) }
 
   before do
-    @path = visit potepan_category_path(taxon.id)
+    visit path
   end
 
   describe 'check header and footer' do
     scenario 'check header' do
-      header_check(@path)
+      header_check(path)
     end
 
     scenario 'check footer' do
-      footer_check(@path)
+      footer_check(path)
     end
   end
 

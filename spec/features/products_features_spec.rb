@@ -3,18 +3,19 @@ require 'rails_helper'
 RSpec.feature "Products_feature", type: :feature do
   let(:taxon) { create(:taxon) }
   let(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
+  let(:path) { potepan_product_path(product.id) }
 
   before do
-    @path = visit potepan_product_path(product.id)
+    visit path
   end
 
   describe 'check header and footer' do
     scenario 'check header' do
-      header_check(@path)
+      header_check(path)
     end
 
     scenario 'check footer' do
-      footer_check(@path)
+      footer_check(path)
     end
   end
 
