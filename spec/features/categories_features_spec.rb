@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.feature "Categories_feature", type: :feature do
   let(:taxonomy) { create(:taxonomy) }
   let(:taxon) { create(:taxon, parent_id: taxonomy.root.id, taxonomy: taxonomy) }
@@ -26,41 +24,41 @@ RSpec.feature "Categories_feature", type: :feature do
   end
 
   describe 'visit home_link from categories#show' do
-    scenario 'header navbarのロゴリンク' do
+    scenario 'to click navbar logo link' do
       click_on 'home_link'
       home_link_check
     end
 
-    scenario 'header navbarのHOMEリンク' do
+    scenario 'to click navbar HOME link' do
       find('.navbar-home').click
       home_link_check
     end
 
-    scenario '_light_sec navbarのhomeリンク' do
+    scenario 'to click navbar of upper_light_sec home link' do
       find('.light_home').click
       home_link_check
     end
   end
 
   describe 'visit product_page from categories#show' do
-    scenario 'to use display_image', js: true do
+    scenario 'to click display_image', js: true do
       click_on 'image of SampleTote'
       product_link_check
     end
 
-    scenario 'to use product.name', js: true do
+    scenario 'to click product.name', js: true do
       click_link 'SampleTote'
       product_link_check
     end
 
-    scenario 'to use product.display_price', js: true do
+    scenario 'to click product.display_price', js: true do
       click_link '$19.99', match: :first
       product_link_check
     end
   end
 
-  describe 'visit to taxon from taxonomy' do
-    scenario 'to use taxon "Ruby on Rails"', js: true do
+  describe 'visit taxon from left_bar' do
+    scenario 'to click taxon "Ruby on Rails"', js: true do
       click_link 'Brand'
       click_link 'Ruby on Rails'
       expect(page).to have_content 'SAMPLETOTE'
@@ -68,7 +66,7 @@ RSpec.feature "Categories_feature", type: :feature do
       expect(page).not_to have_content 'SAMPLEJERSEY'
     end
 
-    scenario 'to use taxon "Another taxon"', js: true do
+    scenario 'to click taxon "Another taxon"', js: true do
       click_link 'Brand'
       click_link 'Another taxon'
       expect(page).not_to have_content 'SAMPLETOTE'

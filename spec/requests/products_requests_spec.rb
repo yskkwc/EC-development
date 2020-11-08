@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Products_requests", type: :request do
   let(:product) { create(:product, taxons: [create(:taxon)]) }
 

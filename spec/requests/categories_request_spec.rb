@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe "Categories_requests", type: :request do
   let(:taxonomy) { create(:taxonomy) }
   let(:taxon) { create(:taxon, parent: taxonomy.root, taxonomy: taxonomy) }

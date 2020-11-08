@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.feature "Products_feature", type: :feature do
   let(:taxon) { create(:taxon) }
   let(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
@@ -19,24 +17,24 @@ RSpec.feature "Products_feature", type: :feature do
     end
   end
 
-  describe "visit home_link from products#show" do
-    scenario 'header navbarのロゴリンク' do
+  describe 'visit home_link from products#show' do
+    scenario 'to click header navbar logo link' do
       click_on 'home_link'
       home_link_check
     end
 
-    scenario 'header navbarのHOMEリンク' do
+    scenario 'to click header navbar HOME link' do
       find('.navbar-home').click
       home_link_check
     end
 
-    scenario '"一覧ページへ戻る" リンク' do
+    scenario 'to click "一覧ページへ戻る" link' do
       click_link '一覧ページへ戻る'
       expect(page).to have_content 'SampleTote'
       expect(page).to have_content '$19.99'
     end
 
-    scenario '_light_sec navbarのhomeリンク' do
+    scenario 'to click navbar of upper_light_sec home link' do
       find('.light_home').click
       home_link_check
     end
