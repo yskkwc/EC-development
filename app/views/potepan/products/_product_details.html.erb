@@ -1,7 +1,7 @@
 <div class="media-body">
   <ul class="list-inline">
     <li>
-      <%= link_to potepan_path do %>
+      <%= link_to potepan_category_path(@product.taxons.first.id) do %>
         <i class="fa fa-reply" aria-hidden="true"></i>一覧ページへ戻る
       <% end %>
     </li>
@@ -25,6 +25,8 @@
     </select>
   </span>
   <div class="btn-area">
-    <a href="cart_page.html" class="btn btn-primary btn-block">カートへ入れる<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+    <a href="cart_page.html" class="btn btn-primary btn-block">
+      カートへ入れる<i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
   </div>
 </div>

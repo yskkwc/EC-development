@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe ApplicationHelper, type: :helper do
   describe "page_title" do
     let(:page_title) { "Test_page" }
