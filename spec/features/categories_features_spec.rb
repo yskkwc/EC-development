@@ -87,10 +87,14 @@ RSpec.feature "Categories_feature", type: :feature do
 
   def product_link_check
     aggregate_failures do
-      expect(page).to have_content 'SAMPLETOTE'
-      expect(page).not_to have_content 'SAMPLEBAG'
-      expect(page).to have_content '$19.99'
+      within(:css, '.product_detail') do
+        expect(page).to have_content 'SAMPLETOTE'
+        expect(page).not_to have_content 'SAMPLEBAG'
+        expect(page).to have_content '$19.99'
+      end
       expect(page).to have_content '関連商品'
+      expect(page).to have_content 'SAMPLEBAG'
+      expect(page).not_to have_content 'SAMPLEJERSEY'
       click_link '一覧ページへ戻る'
       expect(page).to have_content 'SAMPLETOTE'
       expect(page).to have_content 'SAMPLEBAG'
