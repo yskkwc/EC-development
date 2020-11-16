@@ -1,7 +1,7 @@
 RSpec.describe "Products_requests", type: :request do
   let(:taxon) { create(:taxon) }
   let(:product) { create(:product, taxons: [taxon]) }
-  let!(:related_products) { create_list(:product, 4, taxons: [taxon]) }
+  let!(:related_products) { create_list(:product, 5, taxons: [taxon]) }
   let!(:not_related_product) { create(:product, price: "99.99", taxons: [create(:taxon)]) }
 
   describe "#index" do
@@ -40,10 +40,6 @@ RSpec.describe "Products_requests", type: :request do
 
     it "display related_products" do
       expect(response.body).to include "関連商品"
-      related_products.each do |related_product|
-        expect(response.body).to include related_product.name
-        expect(response.body).to include related_product.display_price.to_s
-      end
       expect(assigns(:related_products).size).to eq 4
     end
 
