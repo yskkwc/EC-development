@@ -1,0 +1,4 @@
+module Constants
+  DISPLAY_RELATED_PRODUCTS_COUNT = 4
+  TESTS_EXPECT_COUNT = 3
+end
