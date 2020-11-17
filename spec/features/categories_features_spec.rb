@@ -35,7 +35,7 @@ RSpec.feature "Categories_feature", type: :feature do
     end
 
     scenario 'to click navbar of upper_light_sec home link' do
-      find('.light_home').click
+      find('.light-home').click
       home_link_check
     end
   end
@@ -87,7 +87,7 @@ RSpec.feature "Categories_feature", type: :feature do
 
   def product_link_check
     aggregate_failures do
-      within(:css, '.product_detail') do
+      within(:css, '.product-detail') do
         expect(page).to have_content product.name.upcase
         expect(page).not_to have_content similar_product.name.upcase
         expect(page).to have_content product.display_price

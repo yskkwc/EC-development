@@ -5,17 +5,8 @@ RSpec.feature "Products_feature", type: :feature do
     create(:taxon, name: "NOT related taxon", taxonomy: taxonomy, parent: taxonomy.root)
   end
   let(:product) { create(:product, name: "SampleTote", taxons: [taxon]) }
-  let!(:related_products) do
-    4.times.collect do |i|
-      create(
-        :product,
-        name: "related product#{i + 1}",
-        price: "#{i + 1}",
-        taxons: [taxon]
-      )
-    end
-  end
-
+  let!(:related_product) { create(:product, name: "RelatedBag", price: "88.88", taxons: [taxon]) }
+  let!(:other_related_products) { create_list(:product, 3, taxons: [taxon]) }
   let!(:not_related_product) do
     create(:product, name: "NOT related product", price: "99.99",
                      taxons: [another_taxon])
@@ -55,7 +46,7 @@ RSpec.feature "Products_feature", type: :feature do
     end
 
     scenario 'to click navbar of upper_light_sec home link' do
-      find('.light_home').click
+      find('.light-home').click
       home_link_check
     end
   end
@@ -63,7 +54,7 @@ RSpec.feature "Products_feature", type: :feature do
   describe 'visit other product_page from related_products' do
     scenario 'to check taxon in taxonomy', js: true do
       click_link '一覧ページへ戻る'
-      within(:css, '.category_bar') do
+      within(:css, '.category-bar') do
         click_link taxonomy.name
         expect(page).to have_content taxon.name
         expect(page).to have_content another_taxon.name
@@ -72,19 +63,19 @@ RSpec.feature "Products_feature", type: :feature do
 
     scenario 'to click related_product.name', js: true do
       product_link_check
-      click_link related_products[0].name
+      click_link related_product.name
       related_product_link_check
     end
 
     scenario 'to click related_product.display_price', js: true do
       product_link_check
-      click_link related_products[0].display_price
+      click_link related_product.display_price
       related_product_link_check
     end
 
     scenario 'to click related_product.display_image', js: true do
       product_link_check
-      click_on "image of #{related_products[0].name}"
+      click_on "image of #{related_product.name}"
       related_product_link_check
     end
   end
@@ -101,38 +92,40 @@ RSpec.feature "Products_feature", type: :feature do
 
   def product_link_check
     aggregate_failures do
-      within(:css, '.media-body') do
+      within(:css, '.product-detail') do
         expect(page).to have_content product.name.upcase
         expect(page).to have_content product.display_price
       end
-      within(:css, '.related_products') do
+      within(:css, '.related-products') do
         expect(page).to have_content '関連商品'
-        expect(page).to have_content related_products[0].name.upcase
-        expect(page).to have_content related_products[1].name.upcase
-        expect(page).to have_content related_products[2].name.upcase
-        expect(page).to have_content related_products[3].name.upcase
+        expect(page).to have_content related_product.name.upcase
+        expect(page).to have_content related_product.display_price
+        other_related_products.each do |other_related_product|
+          expect(page).to have_content other_related_product.name.upcase
+          expect(page).to have_content other_related_product.display_price
+        end
+        expect(page).not_to have_content not_related_product.name.upcase
+        expect(page).not_to have_content not_related_product.display_price
       end
     end
   end
 
   def related_product_link_check
     aggregate_failures do
-      within(:css, '.product_detail') do
-        expect(page).to have_content related_products[0].name.upcase
-        expect(page).to have_content related_products[0].display_price
+      within(:css, '.product-detail') do
+        expect(page).to have_content related_product.name.upcase
+        expect(page).to have_content related_product.display_price
       end
-      within(:css, '.related_products') do
+      within(:css, '.related-products') do
         expect(page).to have_content '関連商品'
         expect(page).to have_content product.name.upcase
         expect(page).to have_content product.display_price
-        expect(page).to have_content related_products[1].name.upcase
-        expect(page).to have_content related_products[1].display_price
-        expect(page).to have_content related_products[2].name.upcase
-        expect(page).to have_content related_products[2].display_price
-        expect(page).to have_content related_products[3].name.upcase
-        expect(page).to have_content related_products[3].display_price
-        expect(page).not_to have_content related_products[0].name.upcase
-        expect(page).not_to have_content related_products[0].display_price
+        other_related_products.each do |other_related_product|
+          expect(page).to have_content other_related_product.name.upcase
+          expect(page).to have_content other_related_product.display_price
+        end
+        expect(page).not_to have_content related_product.name.upcase
+        expect(page).not_to have_content related_product.display_price
         expect(page).not_to have_content not_related_product.name.upcase
         expect(page).not_to have_content not_related_product.display_price
       end

@@ -9,7 +9,7 @@ RSpec.describe Spree::ProductDecorator, type: :model do
       let!(:related_products) { create_list(:product, 5, taxons: [taxon]) }
 
       it "product expect to count 4 related products when have more than 4" do
-        expect(product.related_products.count).to eq 4
+        expect(product.related_products.count).to eq Constants::DISPLAY_RELATED_PRODUCTS_COUNT
       end
     end
 
@@ -17,7 +17,7 @@ RSpec.describe Spree::ProductDecorator, type: :model do
       let!(:related_products) { create_list(:product, 3, taxons: [taxon]) }
 
       it "product expect to count 3 related products" do
-        expect(product.related_products.count).to eq 3
+        expect(product.related_products.count).to eq Constants::TESTS_EXPECT_COUNT
       end
     end
 
