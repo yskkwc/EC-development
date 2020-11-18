@@ -40,7 +40,7 @@ RSpec.describe "Products_requests", type: :request do
 
     it "display related_products" do
       expect(response.body).to include "関連商品"
-      expect(assigns(:related_products).count).to eq Constants::DISPLAY_RELATED_PRODUCTS_COUNT
+      expect(assigns(:related_products).count).to eq Constants::DISPLAY_RELATED_PRODUCTS_MAX_COUNT
     end
 
     it "not display not_related_product" do
