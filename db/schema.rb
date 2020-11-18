@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_10_072254) do
+ActiveRecord::Schema.define(version: 2020_01_10_032920) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -662,26 +662,6 @@ ActiveRecord::Schema.define(version: 2020_11_10_072254) do
     t.datetime "updated_at", precision: 6
     t.index ["customer_return_id"], name: "index_spree_reimbursements_on_customer_return_id"
     t.index ["order_id"], name: "index_spree_reimbursements_on_order_id"
-  end
-
-  create_table "spree_relation_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "applies_to"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "spree_relations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "relation_type_id"
-    t.string "relatable_type"
-    t.integer "relatable_id"
-    t.string "related_to_type"
-    t.integer "related_to_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal "discount_amount", precision: 8, scale: 2, default: "0.0"
-    t.integer "position"
   end
 
   create_table "spree_return_authorizations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
