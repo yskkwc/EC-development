@@ -1,7 +1,9 @@
 RSpec.describe "Products_requests", type: :request do
   let(:taxon) { create(:taxon) }
   let(:product) { create(:product, taxons: [taxon]) }
-  let!(:related_products) { create_list(:product, 5, taxons: [taxon]) }
+  let!(:related_products) do
+    create_list(:product, Constants::DISPLAY_RELATED_PRODUCTS_MAX_COUNT + 1, taxons: [taxon])
+  end
   let!(:not_related_product) { create(:product, price: "99.99", taxons: [create(:taxon)]) }
 
   describe "#index" do
