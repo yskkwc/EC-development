@@ -35,43 +35,43 @@ RSpec.feature "Categories_feature", type: :feature do
     end
 
     scenario 'to click navbar of upper_light_sec home link' do
-      find('.light_home').click
+      find('.light-home').click
       home_link_check
     end
   end
 
   describe 'visit product_page from categories#show' do
     scenario 'to click display_image', js: true do
-      click_on 'image of SampleTote'
+      click_on "image of #{product.name}"
       product_link_check
     end
 
     scenario 'to click product.name', js: true do
-      click_link 'SampleTote'
+      click_link product.name
       product_link_check
     end
 
     scenario 'to click product.display_price', js: true do
-      click_link '$19.99', match: :first
+      click_link product.display_price, match: :first
       product_link_check
     end
   end
 
   describe 'visit taxon from left_bar' do
     scenario 'to click taxon "Ruby on Rails"', js: true do
-      click_link 'Brand'
-      click_link 'Ruby on Rails'
-      expect(page).to have_content 'SAMPLETOTE'
-      expect(page).to have_content 'SAMPLEBAG'
-      expect(page).not_to have_content 'SAMPLEJERSEY'
+      click_link taxonomy.name
+      click_link taxon.name
+      expect(page).to have_content product.name.upcase
+      expect(page).to have_content similar_product.name.upcase
+      expect(page).not_to have_content another_product.name.upcase
     end
 
     scenario 'to click taxon "Another taxon"', js: true do
-      click_link 'Brand'
-      click_link 'Another taxon'
-      expect(page).not_to have_content 'SAMPLETOTE'
-      expect(page).not_to have_content 'SAMPLEBAG'
-      expect(page).to have_content 'SAMPLEJERSEY'
+      click_link taxonomy.name
+      click_link another_taxon.name
+      expect(page).not_to have_content product.name.upcase
+      expect(page).not_to have_content similar_product.name.upcase
+      expect(page).to have_content another_product.name.upcase
     end
   end
 
@@ -87,14 +87,18 @@ RSpec.feature "Categories_feature", type: :feature do
 
   def product_link_check
     aggregate_failures do
-      expect(page).to have_content 'SAMPLETOTE'
-      expect(page).not_to have_content 'SAMPLEBAG'
-      expect(page).to have_content '$19.99'
+      within(:css, '.product-detail') do
+        expect(page).to have_content product.name.upcase
+        expect(page).not_to have_content similar_product.name.upcase
+        expect(page).to have_content product.display_price
+      end
       expect(page).to have_content '関連商品'
+      expect(page).to have_content similar_product.name.upcase
+      expect(page).not_to have_content another_product.name.upcase
       click_link '一覧ページへ戻る'
-      expect(page).to have_content 'SAMPLETOTE'
-      expect(page).to have_content 'SAMPLEBAG'
-      expect(page).not_to have_content 'SAMPLEJERSEY'
+      expect(page).to have_content product.name.upcase
+      expect(page).to have_content similar_product.name.upcase
+      expect(page).not_to have_content another_product.name.upcase
     end
   end
 end

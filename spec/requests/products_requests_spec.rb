@@ -1,5 +1,10 @@
 RSpec.describe "Products_requests", type: :request do
-  let(:product) { create(:product, taxons: [create(:taxon)]) }
+  let(:taxon) { create(:taxon) }
+  let(:product) { create(:product, taxons: [taxon]) }
+  let!(:related_products) do
+    create_list(:product, Constants::DISPLAY_RELATED_PRODUCTS_MAX_COUNT + 1, taxons: [taxon])
+  end
+  let!(:not_related_product) { create(:product, price: "99.99", taxons: [create(:taxon)]) }
 
   describe "#index" do
     before do
@@ -33,6 +38,17 @@ RSpec.describe "Products_requests", type: :request do
         expect(response.body).to include image.attachment(:large)
         expect(response.body).to include image.attachment(:small)
       end
+    end
+
+    it "display related_products" do
+      expect(response.body).to include "関連商品"
+      expect(assigns(:related_products).count).to eq Constants::DISPLAY_RELATED_PRODUCTS_MAX_COUNT
+    end
+
+    it "not display not_related_product" do
+      expect(response.body).to include "関連商品"
+      expect(response.body).not_to include not_related_product.name
+      expect(response.body).not_to include not_related_product.display_price.to_s
     end
   end
 end
